@@ -1,0 +1,27 @@
+{%  extends 'base.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+    <div class = "container">
+    <h1>{{ title }}</h1>
+    <div class = "card">
+This is twig extending the base twig template
+    </div>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tincidunt dictum massa, a cursus massa hendrerit nec. Aenean tempor libero et commodo faucibus. Praesent euismod, nunc vitae ullamcorper aliquet, sapien tortor bibendum velit, at feugiat nisi diam id ex. Proin laoreet eleifend lacus et pretium. Nam eget dictum ante. Nam ac ex felis. Vivamus non odio tempus, lacinia metus sit amet, venenatis justo.</p>
+
+        <p>Praesent nec nibh urna. Pellentesque convallis dui et fermentum mollis. Nullam neque sem, porttitor et venenatis quis, eleifend nec nulla. Donec ullamcorper mollis fermentum. Curabitur viverra et lectus quis commodo. Mauris arcu velit, efficitur nec tristique sed, scelerisque nec eros. Aliquam sodales quis tortor efficitur commodo. Donec suscipit ultricies consequat. Quisque vitae tellus vel tortor porta rutrum. Cras non nisl molestie, imperdiet tortor ut, rutrum lacus.</p>
+
+        <p>Praesent non magna varius, interdum mauris ut, tristique ligula. Morbi rhoncus lectus sit amet elit blandit ullamcorper. Duis placerat accumsan mi, quis tempus nisl gravida in. Proin eget ante quis eros congue rhoncus. Nulla nec ante varius, bibendum nunc sit amet, laoreet tellus. Donec fringilla sollicitudin vestibulum. Etiam neque ipsum, mollis vitae dui nec, tristique condimentum neque. Donec mattis felis a sapien ultricies volutpat. Proin volutpat vehicula eleifend. Nullam eu pulvinar justo. Suspendisse accumsan, sapien vel aliquet posuere, urna tortor maximus nunc, id ultricies sapien libero quis lectus. Praesent quis turpis porta, blandit mauris varius, faucibus massa. Nam lacinia suscipit orci a malesuada. Aliquam erat volutpat.</p>
+
+        <p>Phasellus ac congue leo. Fusce et sem vitae dui accumsan pulvinar. Duis efficitur, ex ut vehicula cursus, eros nunc porta justo, ac dictum neque lorem vitae magna. Aenean nec viverra libero. Nulla elementum nec mauris quis tempor. Nam tincidunt eros eu lacus bibendum, sed finibus arcu lacinia. Nullam varius dui nec leo pharetra fermentum. Nunc molestie, est et ornare tempor, mauris dui aliquam lectus, quis pharetra justo lorem eget arcu. Aenean imperdiet nisl sed blandit eleifend. Phasellus at ipsum eu nibh auctor pretium vel non nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam interdum iaculis quam sed lacinia. Curabitur dapibus porta tortor ac vehicula. Vestibulum et iaculis magna, id pharetra neque.</p>
+
+    <hr>
+    <h2>Comments ({{ comments|length }})</h2>
+    {% for comment in comments %}
+        <div class = "card">
+            {{ comment }}
+        </div>
+    {% endfor %}
+
+    </div>
+{% endblock %}
