@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block title %}{{ article.title }}{% endblock %}
 {% block body %}
     <div class="container">
         <div class="row">
@@ -8,45 +8,35 @@
                 <div class="show-article-container p-3 mt-4">
                     <div class="row">
                         <div class="col-sm-12">
+
 {#                            <img class="show-article-img" src="{{ asset('images/asteroid.jpeg') }}">#}
                             <div class="show-article-title-container d-inline-block pl-3 align-middle">
-                                <span class="show-article-title "><h2>Why do Asteroids Taste Like Bacon?</h2></span>
+                                <span class="show-article-title "><h2>{{ article.title }}</h2></span>
                                 <br>
 {#                                <img class="article-author-img rounded-circle" src="{{ asset('images/alien-profile.png') }}">#}
                                 <span class="align-left article-details"> Mike Ferengi </span>
                                 <span class="pl-2 article-details"> 3 hours ago</span>
-                                <span class="pl-2 article-details"> 5 <a href="#" class="fas fa-thumbs-up like-article"></a> </span>
+                                <span class="pl-2 article-details">
+                                    <span class = "likeArticleCount">5</span>
+                                    <a href="{{ path('article_like', {slug: article.slug}) }}" class="fas fa-thumbs-up like-article"></a> </span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="article-text">
-                                <p>Spicy jalapeno bacon ipsum dolor amet veniam shank in dolore. Ham hock nisi landjaeger cow,
-                                    lorem proident beef ribs aute enim veniam ut cillum pork chuck picanha. Dolore reprehenderit
-                                    labore minim pork belly spare ribs cupim short loin in. Elit exercitation eiusmod dolore cow
-                                    turkey shank eu pork belly meatball non cupim.</p>
-                                <p>Laboris beef ribs fatback fugiat eiusmod jowl kielbasa alcatra dolore velit ea ball tip. Pariatur
-                                    laboris sunt venison, et laborum dolore minim non meatball. Shankle eu flank aliqua shoulder,
-                                    capicola biltong frankfurter boudin cupim officia. Exercitation fugiat consectetur ham. Adipisicing
-                                    picanha shank et filet mignon pork belly ut ullamco. Irure velit turducken ground round doner incididunt
-                                    occaecat lorem meatball prosciutto quis strip steak.</p>
-                                <p>Meatball adipisicing ribeye bacon strip steak eu. Consectetur ham hock pork hamburger enim strip steak
-                                    mollit quis officia meatloaf tri-tip swine. Cow ut reprehenderit, buffalo incididunt in filet mignon
-                                    strip steak pork belly aliquip capicola officia. Labore deserunt esse chicken lorem shoulder tail consectetur
-                                    cow est ribeye adipisicing. Pig hamburger pork belly enim. Do porchetta minim capicola irure pancetta chuck
-                                    fugiat.</p>
-                                <p>Sausage tenderloin officia jerky nostrud. Laborum elit pastrami non, pig kevin buffalo minim ex quis. Pork belly
-                                    pork chop officia anim. Irure tempor leberkas kevin adipisicing cupidatat qui buffalo ham aliqua pork belly
-                                    exercitation eiusmod. Exercitation incididunt rump laborum, t-bone short ribs buffalo ut shankle pork chop
-                                    bresaola shoulder burgdoggen fugiat. Adipisicing nostrud chicken consequat beef ribs, quis filet mignon do.
-                                    Prosciutto capicola mollit shankle aliquip do dolore hamburger brisket turducken eu.</p>
-                                <p>Do mollit deserunt prosciutto laborum. Duis sint tongue quis nisi. Capicola qui beef ribs dolore pariatur.
-                                    Minim strip steak fugiat nisi est, meatloaf pig aute. Swine rump turducken nulla sausage. Reprehenderit pork
-                                    belly tongue alcatra, shoulder excepteur in beef bresaola duis ham bacon eiusmod. Doner drumstick short loin,
-                                    adipisicing cow cillum tenderloin.</p>
+                            <div class="show-article-container p-3 mt-4">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="article-text">
+                                            {{ article.content | raw }}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                       
+                        </div>
+                    </div>
+                </div>
+<!-- THIS IS THE END OF WHAT NEED TO BE DELETED -->
 {#                    </div>#}
 {#                    <div class="row">#}
 {#                        <div class="col-sm-12">#}
@@ -89,7 +79,7 @@
 {#    </div>#}
 
         <hr>
-        <h2>Comments ({{ comments|length }})</h2>
+        <h2><i class="far fa-comments"></i>Comments ({{ comments|length }})</h2>
         <div class="row bootstrap snippets">
             <div class="col-md-6 col-md-offset-2 col-sm-12">
                 <div class="comment-wrapper">
@@ -129,4 +119,11 @@
 
 
     </div>
+                    </div>
+                </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+                        <script src = "{{ asset('assets/js/article_show.js') }}"></script>
+
 {% endblock %}
