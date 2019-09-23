@@ -5,47 +5,43 @@
             <!-- Article List -->
             <div class="col-sm-12 col-md-8">
                 <!-- H1 Article -->
-                <a class="main-article-link" href="#">
-{#                    <div class="main-article mb-5 pb-3">#}
 
-                        <h1 class="text-center mt-2">Ursid Meteor Shower: <br>Healthier than a regular shower?</h1>
-                </a>
+                {% for article in articles %}
+                    {% if article.featured == 1 %}
+                    <a class="main-article-link" href="{{ path('article_show', {slug: article.slug}) }}">
+{#                        <a href="{{ path('article_show', {slug:"Why-do-asteroids-taste-like-bacon"}) }}">#}
+                        {#                    <div class="main-article mb-5 pb-3">#}
+                        {% if article.img %}
+                            <img src="{{ asset(article.img) }}" class="featuredImg">
+                            {% endif %}
+                        <h1 class="text-center mt-2">{{ article.title }}</h1>
+                    </a>
+                <p>By: {{ article.author }}</p>
+                <p> {{ article.likeCount }} Likes</p>
+                    {% else %}
+                        <div class = "card">
+                            <a href="{{ path('article_show', {slug:article.slug}) }}">
+                                <div class="article-title d-inline-block pl-3 align-middle">
 
+                                    <span>
+                                        {% if article.img %}
+                                            <img src="{{ asset(article.img) }}" class="article-img">
+                                            {% endif %}
+                                        <p>{{ article.title }}</p>
+                            </a>
+                                        <p>{{ article.author }}<span style = "float:right; padding-right: 20px;">{{ article.likeCount }}  likes</span></p>
+                                    </span>
+                                </div>
+
+                        </div>
+
+                    {% endif %}
+                {% endfor %}
                 <!-- Supporting Articles -->
-                <div class="card">
-                    <a href="{{ path('article_show', {slug:"Why-do-asteroids-taste-like-bacon"}) }}">
-                        <img src="{{ asset('assets/imgs/meteor.jpg') }}" alt="meteor">
-                        <div class="article-title d-inline-block pl-3 align-middle">
-                            <span>Why do Asteroids Taste Like Bacon?</span>
-                            <br>
-                            <span class="align-left article-details"><img class="article-author-img rounded-circle" src="{{ asset('images/alien-profile.png') }}"> Mike Ferengi </span>
-                            <span class="pl-5 article-details float-right"> 3 hours ago</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="card">
-                    <a href="#">
-                        <img class="article-img"  src="{{ asset('assets/imgs/mercury.jpg') }}">
-                        <div class="article-title d-inline-block pl-3 align-middle">
-                            <span>Life on Planet Mercury: <br> Tan, Relaxing and Fabulous</span>
-                            <br>
-                            <span class="align-left article-details"><img class="article-author-img rounded-circle" src="{{ asset('assets/imgs/msercury.jpg') }}"> Amy Oort </span>
-                            <span class="pl-5 article-details float-right"> 6 days ago</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="card">
-                    <a href="#">
-                        <img class="article-img" src="{{ asset('assets/imgs/lightspeed.jpg') }}">
-                        <div class="article-title d-inline-block pl-3 align-middle">
-                            <span>Light Speed Travel: <br> Fountain of Youth or Fallacy</span>
-                            <br>
-                            <span class="align-left article-details"><img class="article-author-img rounded-circle" src="{{ asset('images/astronaut-profile.png') }}"> Amy Oort </span>
-                            <span class="pl-5 article-details float-right"> 2 weeks ago</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
+
+
+
+            </div> <!-- End Left Container -->
             <!-- Right bar ad space -->
             <div class="col-sm-12 col-md-4 text-center">
                 <div class="ad-space mx-auto mt-1 pb-2 pt-2">

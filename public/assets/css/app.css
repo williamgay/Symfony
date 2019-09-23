@@ -70,7 +70,7 @@ body {
     line-height: 1.5;
     color: #222;
     text-align: left;
-    background-color: #67d8fe;
+    background-color: #0C01E0;
 }
 
 [tabindex="-1"]:focus {
@@ -11009,7 +11009,13 @@ body{margin-top:20px;}
     margin-bottom:25px;
 }
 .header{
-    background: url('../imgs/bright.jpg');
+    background: url('../imgs/blur.jpg');
     min-height:150px;
     width:100%;
+}
+
+.featuredImg{
+    width: 600px;
+    overflow: hidden;
+    object-fit: cover;
 }

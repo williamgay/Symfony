@@ -5,6 +5,8 @@ namespace App\Controller;
 
 
 
+use App\Repository\CommentRepository;
+use App\Repository\UserRepository;
 use App\Service\MarkdownHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,9 +20,15 @@ class ArticleController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function homepage(){
+    public function homepage(EntityManagerInterface $em){
+        $repository=$em->getRepository(Article::class);
+        $articles = $repository->findBy(
+            array(),
+            array('featured' => 'DESC'));
+    // dump($articles);die;
         return $this->render('article/homepage.html.twig', [
-            'title'=>ucwords('home page')
+            'title'=>ucwords('home page'),
+            'articles'=>$articles,
         ]);
     }
 
@@ -30,7 +38,7 @@ class ArticleController extends AbstractController
      * @return Response
      * @throws \Psr\Cache\InvalidArgumentException
      */
-    public function show($slug, MarkdownHelper $markdownHelper,  EntityManagerInterface  $em){
+    public function show($slug, MarkdownHelper $markdownHelper, UserRepository $userRepository, EntityManagerInterface  $em){
         $comments = [
             ["text"=>"This is a comment", "author"=>"William Gay", "time"=>"30 minutes ago", "avatar"=>"https://bootdey.com/img/Content/user_1.jpg"],
             ["text"=>"This is a second comment", "author"=>"Tammy Montgomery", "time"=>"28 minutes ago", "avatar"=>"https://bootdey.com/img/Content/user_2.jpg"],
@@ -52,11 +60,21 @@ class ArticleController extends AbstractController
         if (!$article) {
             throw $this->createNotFoundException(sprintf('No article for slug "%s"', $slug));
         }
-//        dump($article);die;
-        //$article->content = $markdownHelper->parse($article->content);
+
+       // $article->comments = $commentRepository->findBy(['article'=>$article]);
+//        $comments = $article->getComments();
+//        foreach ($comments as $comment){
+//            dump($comment);
+//        }
+      //  $user = $article->getUser();
+     // dump($user->name);die;
+//        $user =$userRepository->findBy(['user'=>1]);
+//        dump($article->user
+//        );die;
+        $article->content = $markdownHelper->parse($article->content);
         return $this->render('article/show.html.twig', [
             //'title' =>ucwords(str_replace('-', ' ', $slug)),
-            'comments'=>$comments,
+            //'comments'=>$comments,
            'article'=>$article,
             //'slug'=>$slug,
         ]);
@@ -64,8 +82,10 @@ class ArticleController extends AbstractController
     /**
      * @Route("/news/{slug}/like", name="article_like", methods={"POST"})
      */
-    public function toggleArticleLikes($slug){
-        // TODO:: LIKE/UNLIKE THE ARTICLE
-        return new JsonResponse(['likes'=>rand(5,100)]);
+    public function toggleArticleLikes(Article $article, EntityManagerInterface $em){
+       // $article->incrementLikeCount();
+        $article->setLikeCount($article->getLikeCount() +1);
+        $em->flush();
+         return new JsonResponse(['likes' => $article->getLikeCount()]);
     }
 }

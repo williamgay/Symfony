@@ -14,10 +14,10 @@
                                 <span class="show-article-title "><h2>{{ article.title }}</h2></span>
                                 <br>
 {#                                <img class="article-author-img rounded-circle" src="{{ asset('images/alien-profile.png') }}">#}
-                                <span class="align-left article-details"> Mike Ferengi </span>
-                                <span class="pl-2 article-details"> 3 hours ago</span>
+                                <span class="align-left article-details"> {{ article.author }}</span>
+                                <span class="pl-2 article-details">{{ article.publishedAt |date("m/d/Y") }}</span>
                                 <span class="pl-2 article-details">
-                                    <span class = "likeArticleCount">5</span>
+                                    <span class = "likeArticleCount">{{ article.likeCount }}</span>
                                     <a href="{{ path('article_like', {slug: article.slug}) }}" class="fas fa-thumbs-up like-article"></a> </span>
                             </div>
                         </div>
@@ -28,6 +28,9 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="article-text">
+                                            {% if article.img %}
+                                            <img class ="article-img" src="{{ asset(article.img) }}">
+                                            {% endif %}
                                             {{ article.content | raw }}
                                         </div>
                                     </div>
@@ -79,7 +82,7 @@
 {#    </div>#}
 
         <hr>
-        <h2><i class="far fa-comments"></i>Comments ({{ comments|length }})</h2>
+        <h2><i class="far fa-comments"></i>Comments ({{ article.comments|length }})</h2>
         <div class="row bootstrap snippets">
             <div class="col-md-6 col-md-offset-2 col-sm-12">
                 <div class="comment-wrapper">
@@ -94,19 +97,19 @@
                             <div class="clearfix"></div>
                             <hr>
                             <ul class="media-list">
-                                {% for comment in comments %}
+                                {% for comment in article.comments %}
                                 <li class="media">
 
-                                    <a href="#" class="pull-left">
-                                        <img src="{{ comment['avatar'] }}">
-                                    </a>
+{#                                    <a href="#" class="pull-left">#}
+{#                                        <img src="{{ comment['avatar'] }}">#}
+{#                                    </a>#}
                                     <div class="media-body">
                                     <span class="text-muted pull-right">
-                                        <small class="text-muted">{{ comment['time'] }}</small>
+                                        <small class="text-muted">{{ comment.author_name }}</small>
                                     </span>
-                                        <strong class="text-success">@{{ comment['author'] }}</strong>
+{#                                        <strong class="text-success">@{{ comment['author'] }}</strong>#}
                                         <p>
-                                            {{ comment['text'] }}
+                                            {{ comment['content'] }}
                                         </p>
                                     </div>
                                     {% endfor %}
